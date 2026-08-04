@@ -50,7 +50,7 @@ metadata:
   name: frontend-service
   namespace: hotel-booking
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: frontend
   ports:

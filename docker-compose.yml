@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: hotel-mysql
+    environment:
+      MYSQL_DATABASE: hotel_booking
+      MYSQL_USER: hotel_user
+      MYSQL_PASSWORD: hotel_pass
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./backend/src/main/resources/data.sql:/docker-entrypoint-initdb.d/2-data.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+    container_name: hotel-backend
+    environment:
+      DB_USERNAME: hotel_user
+      DB_PASSWORD: hotel_pass
+      JWT_SECRET: super-secret-for-local-dev
+    ports:
+      - "8081:8081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: hotel-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:

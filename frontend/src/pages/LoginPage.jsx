@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import api from '../api/client';
 
@@ -31,6 +31,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center p-6">
       <form onSubmit={handleSubmit} className="w-full max-w-md rounded-2xl bg-white p-6 shadow dark:bg-slate-900">
         <h2 className="text-2xl font-bold">Login</h2>
+        <p className="mt-2 text-sm text-slate-500">Don&apos;t have an account? <Link to="/register" className="text-blue-600">Create one</Link></p>
         <input className="mt-4 w-full rounded border p-2" placeholder="Username" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
         <input className="mt-4 w-full rounded border p-2" type="password" placeholder="Password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
         <button disabled={loading} className="mt-4 w-full rounded bg-blue-600 py-2 text-white">

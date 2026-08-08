@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: image: 842962535353.dkr.ecr.us-east-1.amazonaws.com/hotel-booking-frontend:latest
+          image: 842962535353.dkr.ecr.us-east-1.amazonaws.com/hotel-booking-frontend:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80

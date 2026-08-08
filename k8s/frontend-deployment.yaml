@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: frontend:latest
+          image: hotel-booking-frontend:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
